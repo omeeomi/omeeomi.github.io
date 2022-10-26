@@ -72,7 +72,9 @@ count: false
 # Chapter 1 - Introduction to Sentinel Concepts
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
+???
 
+Testing adding notes
 ---
 name: sentinel-overview
 # What is Sentinel
@@ -86,7 +88,9 @@ name: sentinel-overview
 
 - It supports fine-grained policies that use conditional logic.
   - For example - "Is this image in the supported images list?"
+???
 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
 ---
 name: sentinel-overview2
 # What is Sentinel
@@ -100,7 +104,9 @@ name: sentinel-overview2
 ]
 
 - (allowed_types = [”350xlarge”,”289ssmall”,”101xssmall”])
+???
 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
 ---
 name: benefits-of-policy
 # Benefits of Policy as Code
