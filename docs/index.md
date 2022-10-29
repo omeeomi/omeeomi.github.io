@@ -4,9 +4,13 @@ background-image: url(https://hashicorp.github.io/field-workshops-assets/assets/
 count: false
 
 # Sentinel for Terraform Workshop (v5)
-## <Instructor>
+# Omid Eghaneyan
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
+
+???
+
+Welcome to today's Sentinel for Terraform Workshop. *Brief self intro
 
 ---
 name: tf-section
@@ -64,6 +68,11 @@ class: compact
 
 </b>
 
+???
+
+Today's workshop is designed to be a more advanced level Terrafrom course where we will cover a lot of touch on what Sentinel is, then dive into the hands on labs that will enable the audience to write, apply, and test policies. There are even a few more advanced excercises working with nested attributes towards the end. There is a lot to cover here, so we will be definetly taking plenty of breaks and go through this one step at a time. A few quick notes on the lab- They will be available for 7 days after today, so if you need more time or get pulled away those will be available. The individual challenges do time out though, so I reccomend completing those at one time. 
+
+
 ---
 class: title, smokescreen, shelf
 background-image: url(https://hashicorp.github.io/field-workshops-assets/assets/bkgs/HashiCorp-Title-bkg.jpeg)
@@ -75,7 +84,7 @@ count: false
 
 ???
 
-Testing adding notes
+We'll start by exploring what sentinel is and at a high level what challenge it is addressing. 
 
 ---
 name: sentinel-overview
@@ -93,7 +102,7 @@ name: sentinel-overview
 
 ???
 
-Testing adding notes
+Sentinel is a policy as code language. Sentinel enables fine grained logic based policies such as legal, regulatory, and compliance frameworks to be codified. Everyone here is familiar with Terraform, so Sentinel is the policy framework to what Terraform is to Infrastructure as code. Where Terraform allows you to codify the infrastructure and definte that repatable consumable pattern. It is its own language that is based on HCL and JSON patterns. It supports fine grained and logical policies. So not only can we validate things like if a image is supported, or can this be done in this region for this cloud, or if this provider can actually be used in my organsization but also do conditional logic. No provisioning after 5 pm, no provisioning on weekends, cost estimaization consumptions, valdiating that im not going to overspend for particular workflows.
 
 ---
 name: sentinel-overview2
@@ -111,7 +120,7 @@ name: sentinel-overview2
 
 ???
 
-Testing adding notes
+At the bottom there you can see of an example of what a policy framework may look like that is not "as Code" and in an excel sheet. The goal here is to address those security requirements in a framework where it is autmatically applied to an enviroment before the enviroment is built out. 
 
 ---
 name: benefits-of-policy
@@ -128,7 +137,7 @@ name: benefits-of-policy
 
 ???
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+With a Policy as Code framework, we're leveraging the same benefits from IaC and now applying them to our regulatory and compliance methodology. 
 
 ---
 name: customer-use-cases
@@ -141,6 +150,10 @@ name: customer-use-cases
 
 **# List of allowed providers** <br>
 **allowed_list = ["aws", "local", "null", "random", "terraform", "tfe"]**
+
+???
+
+Here are a few quick examples of how customers are leveraging Sentinel to enforce their standards. If you've worked with cloud enviroments for a few years you've probally heard horror stories of enencrypted S3 buckets.
 
 ---
 name: customer-use-cases2
@@ -167,6 +180,10 @@ name: what-does-sentinel-not-do
   - Can’t check if “SuperLargeBigInstance” is a valid type
 - Analyze or limit runtime actions of deployed applications
 
+???
+
+Though Sentinel is a powerful tool, it doesn't cover all our bases. It won't...
+
 ---
 name: where-is-sentinel-used
 # Where is Sentinel Used in Terraform?
@@ -177,6 +194,10 @@ name: where-is-sentinel-used
   - the plan, the configuration, the current state, and other run data including cost estimates
 - This ensures that resources comply with all policies **before** they are provisioned.
 
+???
+
+Let's talk through where Sentinel is leverage in the TF build process... 
+
 ---
 name: without-sentinel
 # Terraform Without Sentinel
@@ -186,6 +207,11 @@ name: without-sentinel
 ![:scale 100%](../slides/images/sentinel-without-workflow.png)
 ]
 
+???
+
+Most of you are probally familiar with this workflow. Your IaC is changed, that triggers terraform, a plan & apply is triggered, and voila infrastructure is built. The whole processes can be very quick, with that added velocity comes a certain amount of risk- Enterprise enviroments need a way of enforcing governance in their builds. 
+
+
 ---
 name: with-sentinel
 # Terraform With Sentinel
@@ -193,6 +219,11 @@ name: with-sentinel
 .center[
 ![:scale 100%](../slides/images/sentinel-with-workflow.png)
 ]
+
+???
+
+With Sentinel you have that enforcement applied directly in the worflow.  
+
 
 ---
 name: policys-passed
