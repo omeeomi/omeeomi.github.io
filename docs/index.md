@@ -4,7 +4,7 @@ background-image: url(https://hashicorp.github.io/field-workshops-assets/assets/
 count: false
 
 # Sentinel for Terraform Workshop (v5)
-# Omid Eghaneyan
+## Omid Eghaneyan
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
 
@@ -233,6 +233,11 @@ name: policys-passed
 ![:scale 90%](../slides/images/checks-passed.png)
 ]
 
+???
+
+Here is what that policy check looks like in our enterprise solutions. 
+
+
 ---
 name: policys-passed2
 # All Policy Checks Passed
@@ -240,6 +245,9 @@ name: policys-passed2
 .center[
 ![:scale 90%](../slides/images/checks-passed-verbose.png)
 ]
+???
+
+Here is a detailed viewing showing the detialed results of a policy check. 
 
 ---
 name: enforcement-levels
@@ -256,7 +264,7 @@ name: enforcement-levels
 
 ???
 
-Fix later too annoying
+We mentioned different enforcement levels, here is a break down of each of those. 
 
 ---
 name: soft-mandatory
@@ -265,6 +273,10 @@ name: soft-mandatory
 .center[
 ![:scale 90%](../slides/images/soft-mandatory.png)
 ]
+
+???
+
+Here is an example of a soft mandatory check being overritten
 
 ---
 name: policy-sets
@@ -275,6 +287,10 @@ name: policy-sets
 - They are usually created in VCS repositories and then registered with organizations using the Terraform Cloud UI or API.
 - Additionally, **Parameters** can be added to policy sets allowing the secure introduction of credentials needed by API endpoints invoked with the Sentinel HTTP import.
 
+???
+
+Policies can be organized in groups known as policy sets. An example of this may be grouping policies by cloud provider. 
+
 ---
 name: chapter-summary
 # Chapter Summary
@@ -282,6 +298,10 @@ name: chapter-summary
 - Sentinel is Policy as Code framework
 - Terraform Cloud automatically runs Sentinel checks between **plan and apply**
 - Sentinel has different enforcement levels, **Advisory, Soft and Hard Mandatory**
+
+???
+
+Recaping what we've gone over so far... 
 
 ---
 class: title, smokescreen, shelf
@@ -307,7 +327,7 @@ name: c1-references
 
 ???
 
-Update to all same format please
+Here are a few helpful links that reference what we've covered. 
 
 ---
 class: title, smokescreen, shelf
@@ -318,6 +338,10 @@ count: false
 
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
+
+???
+
+Now that we know what Sentinel is, we'll discuss how it works. 
 
 ---
 name: what-do
@@ -332,6 +356,10 @@ name: what-do
   - Much much more!
       - HTTP Import can even call externally!!!
 
+???
+
+Using the concept of ‘imports’ Sentinel can get data from a plan, config, run or much more and "check" and resource inside of Terraform. The next slide goes into detail of what exactly it's doing. 
+
 ---
 
 name: behind-the-scenes
@@ -341,6 +369,10 @@ name: behind-the-scenes
 ![:scale 100%](../slides/images/sentinel-logic.png)
 ]
 
+???
+
+As you can see here, the starting point is really the plan. From there It reviews the proposed changes...
+
 ---
 name: what-does-it-look-like
 # What Does a Sentinel Check Look Like?
@@ -349,6 +381,10 @@ name: what-does-it-look-like
 ![:scale 80%](../slides/images/show-sentinel.png)
 ]
 
+???
+
+Here is what a check looks like. On the left you can see the actual policy, the right corner is a mock example of what would be built out with a particular set of changes (we'll talk through those more shortly), then on the bottom right we can see the output of both. 
+
 ---
 name: normal-view
 # The UI View
@@ -356,6 +392,10 @@ name: normal-view
 .center[
 ![:scale 90%](../slides/images/sentinel-check-yes-no.png)
 ]
+
+???
+
+Here is the Sentinel workflow from the UI perpective using the same example in the previous slide to validate if an S3 bucket being created is private. After the plan, sentinel runs it's checks and based on that an apply is or isn't performed. 
 
 ---
 name: lets-start
@@ -367,6 +407,11 @@ name: lets-start
   - That is our data!
 - So let's mock some data and **'Get Started with Sentinel'**
 
+???
+
+To get started, well need some mock data from terraform to test our sentinel policies. That data can be found from a Terraform plan. You can generate Sentinel mocks from Terraform plans in TFC/TFE. You can then use these mocks when testing policies with the Sentinel CLI.
+
+
 ---
 name: mock-intro
 # Let's Talk About Mocks
@@ -374,6 +419,10 @@ name: mock-intro
 .center[
 ![:scale 90%](../slides/images/mock-highlight.png)
 ]
+
+???
+
+Going back to this diagram, we can pull the data from the plan and use that for our mock data. 
 
 ---
 name: mock-intro
@@ -387,6 +436,10 @@ name: mock-intro
 .center[
 ![:scale 70%](../slides/images/where-mock.png)
 ]
+
+???
+
+Mocks simulate the data from a plan and can be edited or modified to simulate other data. Using the Sentinel CLI with mocks speeds up development of new policies since additional plans do not need to be run. Towards the bottom there you can see how we can download Sentinel mocks in Terraform Cloud or Enterprise. 
 
 ---
 name: mock-preview
@@ -411,6 +464,10 @@ variables = {
 		"value": "t3.large",
 	}
 ```
+
+???
+
+Here is an example of what a mock looks like. For those familiar with it, the language closely resembles JSON. 
 
 ---
 name: mock-preview
@@ -437,6 +494,10 @@ resource_changes = {
 				"role":        "potato-access-role"
 ```
 
+???
+
+This section of the mock provides more detail on what data is changing. 
+
 ---
 name: mocks-in-terraform
 # Sentinel Mocks in Terraform
@@ -451,6 +512,10 @@ name: mocks-in-terraform
   - gives metadata for Terraform runs and their workspaces as well as cost estimate data
 - **Some policies might use more than one of these imports.**
 
+???
+
+Here is an overview of the various types of mocks 
+
 ---
 name: types-of-policies-0
 # Types of Terraform Sentinel Policies (0)
@@ -459,6 +524,10 @@ There are essentially four types of Terraform Sentinel policies corresponding to
 - Policies can use the **tfplan** import
   - restricts specific attributes of specific resources and data sources in the current Terraform plan.
       - `# Get all Azure Security Center Pricings allAzureSecCenterSubPricings = plan.find_resources("azurerm_security_center_subscription_pricing")`
+
+???
+
+Sentinel Policies for Terraform are defined using the Sentinel policy language. A policy can include imports which enable a policy to access reusable libraries, external data and functions. Terraform Cloud provides four imports to define policy rules for the plan, configuration, state, and run associated with a policy check. tfplan - This provides access to a Terraform plan, the file created as a result of terraform plan. 
 
 ---
 name: types-of-policies-1
@@ -529,6 +598,10 @@ count: false
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
 
+???
+
+Now we will do the first workshop challenge on the Instruqt platform
+
 ---
 name: challenge-one
 # Workshop 1: Using the Sentinel CLI
@@ -541,6 +614,11 @@ name: challenge-one
 
 - In the first challenge of the first track, you'll learn how to run Sentinel CLI commands.
 
+???
+
+The workshop exercises leverage the Instruqt platform and make solving the exercises much easier.
+We recommend you not start the second track until the second session when the workshop is delivered in two sessions.
+
 ---
 name: instruqt-basics
 # Instruqt Basics
@@ -552,6 +630,12 @@ name: instruqt-basics
 - You can click the Check Button to verify if you have completed the assignment. If you have, you will advance to the next challenge. Otherwise, you will be given a hint about what to do next.
 - We recommend you review Instruqt's own tutorial track for more details
 
+???
+
+Here are some basics about Instruqt.
+You might also want to spend 5 minutes reviewing Instruqt's own tutorial track.
+
+
 ---
 class: title, smokescreen, shelf
 background-image: url(https://hashicorp.github.io/field-workshops-assets/assets/bkgs/HashiCorp-Title-bkg.jpeg)
@@ -561,6 +645,11 @@ count: false
 
 
 ![:scale 10%](https://hashicorp.github.io/field-workshops-assets/assets/logos/logo_terraform.png)
+
+???
+
+Now we will do the first two workshop challenges on the Instruqt platform
+
 ---
 name: challenge-2
 # Workshop 2: Applying and Testing Policies
@@ -568,6 +657,11 @@ name: challenge-2
 - In the second challenge, you'll learn how to apply and test a simple Sentinel policy with the Sentinel CLI.
 
 - Please continue in your running instance of the Sentinel CLI Basics track by clicking the green Check button.
+
+???
+
+The workshop exercises leverage the Instruqt platform and make solving the exercises much easier.
+Now let's go through the second challenge in Sentinel CLI Basics
 
 ---
 class: title, smokescreen, shelf
