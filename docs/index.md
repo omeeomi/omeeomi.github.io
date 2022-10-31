@@ -719,6 +719,12 @@ name: what-is-import
   - For example, the import:json capability allows you to parse and access a JSON document
   - Using import we can also consume **common functions** built by power users
 
+???
+
+Imports enable a Sentinel policy to access reusable libraries and external data and functions. Anyone can write their own custom import. Imports are what enable Sentinel policies to do more than look at only local context for making policy decisions.
+Sentinel also comes with a set of standard imports. Standard imports are available to every Sentinel policy to help policy writers with common tasks such as working with the time, network addresses, and more.
+To use an import, you use the import keyword at the top of your policy. This specifies the name of the import you want to use.
+
 ---
 name: sentinel-imports
 # Standard Sentinel Imports
@@ -738,7 +744,9 @@ name: sentinel-imports
 
 ???
 
-Highlighting 2 as they are the most important
+Standard Imports are the built-in imports that are available to all Sentinel policies. Use the navigation to the left to view the documentation for each built-in import.
+Sentinel-embedded applications can choose to allow or deny certain standard imports. Please reference the documentation for the Sentinel-enabled application you're using to determine if all standard imports are available.
+Highlighting 2 that are the most important - http & string
 
 ---
 name: example-operations
@@ -944,6 +952,13 @@ You can use three different methods for testing your Terraform Sentinel policies
   - You can execute automated tests against actual Terraform code by using the Terraform API.
   - You can use the Sentinel Simulator with mocks generated from Terraform plans.
 
+???
+
+Similiar to building and authoring Terraform code or Modules, establishing a workflow for authoring Sentinel policies helps ensure succeessfull implementation of new policies written. Here are three different methods for testing new policies- 
+1) Manually test policies against actual Terraform code by using the Terraform UI or the Terraform CLI with the remote backend
+2) execute automated tests against actual Terraform code by using the Terraform API.
+3) use the Sentinel Simulator with mocks generated from Terraform plans.
+
 ---
 name: authoring-workflow
 # Introducing the Sentinel Authoring Workflow
@@ -969,6 +984,11 @@ name: methodology-0
 7. Iterate, Iterate, Iterate
 8. Deploy your policy
   - _Secret Step 9, relax and enjoy automated policy enforcement_
+
+???
+
+At a high level, here are the 8 steps to authoring Sentinel policies. We've got a diagram of this workflow on the next slide for those who perfer a visualization. We'll also go through these steps one at a time. 
+
 
 ---
 name: authoring-workflow-diagram
@@ -1357,6 +1377,11 @@ name: testing-policy-loop
 .center[
 ![:scale 100%](../slides/images/authoring-next.png)
 ]
+
+???
+
+The policy will loop though each instance or iteration that is deployed to validate that all of that resource type comply to the policy. 
+
 
 ---
 name: chapter-4-summary
